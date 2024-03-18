@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-border-radius: 50;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: efefef;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Poin kehadiran">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <left>
+                              <AnchorPane BorderPane.alignment="CENTER">
+                                 <children>
+                                    <FlowPane alignment="CENTER" columnHalignment="CENTER" orientation="VERTICAL" prefHeight="254.0" prefWidth="302.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 10px;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+                                       <children>
+                                          <Label text="Retang waktu">
+                                             <font>
+                                                <Font name="System Bold" size="17.0" />
+                                             </font>
+                                          </Label>
+                                          <VBox alignment="CENTER" prefHeight="160.0" prefWidth="230.0" spacing="10.0">
+                                             <children>
+                                                <Group>
+                                                   <children>
+                                                      <Label text="Start">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <DatePicker layoutY="17.0" prefHeight="30.0" prefWidth="230.0" />
+                                                   </children>
+                                                </Group>
+                                                <Group>
+                                                   <children>
+                                                      <Label text="End">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <DatePicker layoutY="19.0" prefHeight="30.0" prefWidth="230.0" />
+                                                   </children>
+                                                </Group>
+                                                <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="158.0" text="Tambah" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </FlowPane>
+                                 </children>
+                              </AnchorPane>
+                           </left>
+                           <center>
+                              <AnchorPane BorderPane.alignment="CENTER">
+                                 <children>
+                                    <AnchorPane layoutX="10.0" layoutY="30.0" prefWidth="578.0" style="-fx-border-radius: 10; -fx-background-color: white; -fx-border-color: gray;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="30.0">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" layoutX="32.0" layoutY="32.0" prefWidth="558.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label text="Poin Kehadiran" textAlignment="CENTER">
+                                                   <font>
+                                                      <Font name="System Bold" size="17.0" />
+                                                   </font>
+                                                </Label>
+                                                <AnchorPane prefWidth="526.0">
+                                                   <children>
+                                                      <TableView fixedCellSize="0.0" prefHeight="400.0" prefWidth="526.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <columns>
+                                                          <TableColumn prefWidth="75.0" text="C1" />
+                                                          <TableColumn prefWidth="75.0" text="C2" />
+                                                        </columns>
+                                                         <columnResizePolicy>
+                                                            <TableView />
+                                                         </columnResizePolicy>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Jadwal">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

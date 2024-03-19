@@ -4,6 +4,7 @@
  */
 package appsence;
 
+import java.sql.Statement;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ public class AppSence extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        
         Parent root = FXMLLoader.load(getClass().getResource("/resources/layouts/Sidebar.fxml"));
         
         Scene scene = new Scene(root);

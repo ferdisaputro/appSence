@@ -4,6 +4,7 @@
  */
 package appsence;
 
+import controllers.components.importRecords.ImportOpenFiles.PopupUntrackEmployees;
 import java.sql.Statement;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -24,14 +25,16 @@ public class AppSence extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        
         Parent root = FXMLLoader.load(getClass().getResource("/resources/layouts/Sidebar.fxml"));
-        
         Scene scene = new Scene(root);
-        
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
+
+//        PopupUntrackEmployees untrack = new PopupUntrackEmployees();
+//        untrack.setNewEmployees(newEmployees);
+//        untrack.showPopup();
+
     }
 
     /**

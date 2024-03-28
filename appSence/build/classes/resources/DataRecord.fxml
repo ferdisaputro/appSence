@@ -39,7 +39,7 @@
                                  <children>
                                     <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" spacing="5.0">
                                        <children>
-                                          <Label minHeight="42.0" prefHeight="42.0" text="Note: Make sure all employee's permits are created" textAlignment="CENTER" textFill="RED" wrapText="true" VBox.vgrow="ALWAYS">
+                                          <Label alignment="BOTTOM_LEFT" minHeight="42.0" prefHeight="42.0" text="Note: Make sure all employee's permits are created" textAlignment="CENTER" textFill="RED" wrapText="true" VBox.vgrow="ALWAYS">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -157,6 +157,11 @@
                                                       <Insets top="3.0" />
                                                    </VBox.margin>
                                                 </TableView>
+                                                <Label text="Note: Double click to show detail" textAlignment="CENTER" textFill="RED" wrapText="true">
+                                                   <font>
+                                                      <Font size="11.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </VBox>
                                        </children>

@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import models.importRecords.EmployeeRecordVariable;
 import models.importRecords.OpenRecordsData;
 
 /**
@@ -25,17 +26,20 @@ public class ShowOpenRecords {
     Statement stat;
     String sql;
     ObservableList<OpenRecordsData> recordDatas;
+    EmployeeRecordVariable erv;
     
     public ShowOpenRecords (TableView<OpenRecordsData> openRecordTable, 
             TableColumn<OpenRecordsData, String> openRecordId, 
             TableColumn<OpenRecordsData, String> openRecordTitle, 
             TableColumn<OpenRecordsData, String> openRecordTimeRange, 
-            TableColumn<OpenRecordsData, String> openRecordAction) {
+            TableColumn<OpenRecordsData, String> openRecordAction,
+            EmployeeRecordVariable erv) {
         this.openRecordTable = openRecordTable;
         this.openRecordId = openRecordId;
         this.openRecordTitle = openRecordTitle;
         this.openRecordTimeRange = openRecordTimeRange;
         this.openRecordAction = openRecordAction;
+        this.erv = erv;
 //        this.recordDatas =  FXCollections.observableArrayList();
     }
     
@@ -54,7 +58,8 @@ public class ShowOpenRecords {
                     res.getString("id"),
                     res.getString("title"),
                     res.getString("date"),
-                    res.getString("created_at")
+                    res.getString("created_at"),
+                    this.erv
                 ));
             }
             

@@ -33,6 +33,8 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
+import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
+import static org.apache.poi.ss.usermodel.CellType.STRING;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -81,7 +83,14 @@ public class ReadFile {
                 for (Cell cell : row) {
                     int cellIndex = cell.getColumnIndex();
                     if (row.getRowNum() > 1) {
-                        if (cellIndex == 0) absence[0] = cell.getStringCellValue();//date
+                        if (cellIndex == 0) {//date
+                            String dateVal = "";
+                            switch (cell.getCellType()) {
+                                case NUMERIC: absence[0] = String.valueOf(cell.getNumericCellValue()); break;
+                                case STRING: absence[0] = cell.getStringCellValue(); break;
+                                default: break;
+                            }
+                        }
                         if (cellIndex == 3) {
                             if (cell.getCellType() != CellType.BLANK) {
                                 String[] stringInTime = cell.toString().split(":");

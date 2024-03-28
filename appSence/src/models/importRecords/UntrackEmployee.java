@@ -25,7 +25,6 @@ public class UntrackEmployee {
         this.idEmployee = new TextField();
         this.name = new TextField(name);
         this.shift = new ComboBox(shifts);
-        this.shift.setValue(shifts.get(1));
     }
 
     

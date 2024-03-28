@@ -135,7 +135,7 @@
                                                             <Insets right="5.0" />
                                                          </HBox.margin>
                                                       </Label>
-                                                      <Label fx:id="dateField" text="February-2024">
+                                                      <Label fx:id="dateField" minWidth="20.0">
                                                          <font>
                                                             <Font name="Arial" size="13.0" />
                                                          </font>
@@ -146,9 +146,9 @@
                                                    <columns>
                                                       <TableColumn fx:id="nikEmployees" editable="false" prefWidth="48.0" sortable="false" text="NIK" />
                                                       <TableColumn fx:id="nameEmployees" editable="false" prefWidth="75.0" sortable="false" text="Name" />
-                                                      <TableColumn fx:id="timePointEmployees" editable="false" prefWidth="75.0" text="Time Point" />
-                                                      <TableColumn fx:id="permitPointEmployees" editable="false" prefWidth="75.0" text="Permit Point" />
-                                                      <TableColumn fx:id="totalPointEmployees" editable="false" prefWidth="75.0" sortable="false" text="Total Point" />
+                                                      <TableColumn fx:id="timePointEmployees" editable="false" prefWidth="75.0" sortable="false" text="Time Point" />
+                                                      <TableColumn fx:id="permitPointEmployees" editable="false" prefWidth="75.0" sortable="false" text="Permit Point" />
+                                                      <TableColumn fx:id="totalPointEmployees" editable="false" prefWidth="75.0" sortType="DESCENDING" text="Total Point" />
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

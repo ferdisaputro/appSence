@@ -21,17 +21,19 @@ import models.importRecords.AbsenceRecord;
  */
 public class ShowAbsenceRecords {
     String sql, absenceMonth, absenceYear;
+    int absenceId;
     Connect conn = new Connect();
     Statement stat;
     ObservableList<AbsenceRecord> absenceRecords;
     
     public ShowAbsenceRecords(int absenceId, ObservableList<AbsenceRecord> absenceRecords) {
         this.absenceRecords = absenceRecords;
-        getAbsenceData(absenceId);
+        this.absenceId = absenceId;
+        getAbsenceData();
     }
     
-    private void getAbsenceData (int id) {
-        sql = "SELECT MONTH(absences.date) AS month, YEAR(absences.date) AS year FROM absences WHERE absences.id = " + id;
+    private void getAbsenceData () {
+        sql = "SELECT MONTH(absences.date) AS month, YEAR(absences.date) AS year FROM absences WHERE absences.id = " + absenceId;
         try {
             stat = conn.GetConnection().createStatement();
             ResultSet res = stat.executeQuery(sql);
@@ -87,12 +89,12 @@ public class ShowAbsenceRecords {
                 "        employee e " +
                 "    LEFT JOIN  " +
                 "        detail_absence da ON e.nik = da.nik_employee " +
-                "                AND MONTH(da.absence_date) = 2  " +
-                "                AND YEAR(da.absence_date) = 2024 " +
+                "                AND da.id_absences =  " + absenceId +
                 "    GROUP BY  " +
                 "        e.nik " +
                 ") AS combined_data " +
-                "GROUP BY nik;";        
+                "GROUP BY nik " +
+                "ORDER BY total_point DESC;";        
         try {
             stat = conn.GetConnection().createStatement();
             ResultSet res = stat.executeQuery(sql);
@@ -104,6 +106,11 @@ public class ShowAbsenceRecords {
                     res.getString("sub_total_time"),
                     res.getString("total_point")
                 ));
+//                System.out.println(res.getString("nik") +
+//                    res.getString("name") +
+//                    res.getString("sub_total_permit") +
+//                    res.getString("sub_total_time") +
+//                    res.getString("total_point"));
             }
         } catch (Exception e) {
             e.printStackTrace();

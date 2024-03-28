@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import models.importRecords.EmployeeRecordVariable;
 
 /**
  *
@@ -26,6 +27,7 @@ public class ProcessDatas {
     String prevTitle;
     Statement stat;
     String sql;
+    EmployeeRecordVariable erv;
 //    ArrayList<ArrayList<Integer>> clockInPoints;
     HashMap<String, HashMap<Integer, ArrayList<HashMap<String, Integer>>>> clockPoints;//  {clock_in={1=[[25, 360, 375, 4, 1], [6, 376, 405, 3, 1], [7, 406, 410, 2, 1], [8, 411, 416, 1, 1], [18, 417, 420, 0, 1]], 
                                                                                  //             2=[[14, 420, 435, 4, 2], [15, 436, 465, 3, 2], [16, 466, 470, 2, 2], [17, 471, 476, 1, 2], [24, 477, 480, 0, 2]]}, 
@@ -34,9 +36,10 @@ public class ProcessDatas {
 //    HashMap<Integer, ArrayList<ArrayList<Integer>>> clockOutPoints;
 //    CompletableFuture<Boolean> insertDetails;
     
-    public ProcessDatas(String prevTitle, ArrayList<ArrayList<String>> absences) {
+    public ProcessDatas(String prevTitle, ArrayList<ArrayList<String>> absences, EmployeeRecordVariable erv) {
         this.absences = absences;
         this.prevTitle = prevTitle;
+        this.erv = erv;
 //        this.insertDetails = new CompletableFuture<>();
     }
     
@@ -95,7 +98,8 @@ public class ProcessDatas {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
 //            System.out.println(e);
             try {
                 stat = conn.GetConnection().createStatement();
@@ -115,10 +119,10 @@ public class ProcessDatas {
             sql = "SELECT detail_absence.id, " +
                     "HOUR(detail_absence.clock_in) * 60 + MINUTE(detail_absence.clock_in) AS clock_in, " +
                     "HOUR(detail_absence.clock_out) * 60 + MINUTE(detail_absence.clock_out) AS clock_out, " +
-                    "employee.nik, employee.id_schedule, " +
-                    "FROM absences \n" +
-                    "INNER JOIN detail_absence ON absences.id = detail_absence.id_absences \n" +
-                    "INNER JOIN employee ON detail_absence.nik_employee = employee.nik \n" +
+                    "employee.nik, employee.id_schedule " +
+                    "FROM absences " +
+                    "INNER JOIN detail_absence ON absences.id = detail_absence.id_absences " +
+                    "INNER JOIN employee ON detail_absence.nik_employee = employee.nik " +
                     "WHERE absences.id = '"+id+"' ORDER BY detail_absence.id ";
             ResultSet res = stat.executeQuery(sql);
             int updateCount = 0;
@@ -140,6 +144,7 @@ public class ProcessDatas {
             
             updateDetailAbsences();
             
+            erv.setMyVariable(id);
 //            System.out.println(updatedAbsences.toString());
 //            for (HashMap<String, String> updatedAbsence : updatedAbsences) {
 //                System.out.println(updatedAbsence.toString());

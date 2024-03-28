@@ -16,16 +16,19 @@ import javax.swing.JOptionPane;
 public class OpenRecordsData {
     private StringProperty id, title, date, createdAt;
     private Button openButton;
+    private EmployeeRecordVariable erv;
     
-    public OpenRecordsData(String id, String title, String date, String createdAt) {
+    public OpenRecordsData(String id, String title, String date, String createdAt, EmployeeRecordVariable erv) {
         this.id = new SimpleStringProperty(id);
         this.title = new SimpleStringProperty(title);
         this.date = new SimpleStringProperty(date);
         this.createdAt = new SimpleStringProperty(createdAt);
         this.openButton = new Button("Open");
+        this.erv = erv;
         
         openButton.setOnAction(event -> {
-            JOptionPane.showMessageDialog(null, this.id+" "+this.title+" "+this.date+" "+this.createdAt);
+//            JOptionPane.showMessageDialog(null, this.id+" "+this.title+" "+this.date+" "+this.createdAt);
+            erv.setMyVariable(Integer.parseInt(this.id.get()));
         });
     }
 

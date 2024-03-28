@@ -7,12 +7,13 @@ import controllers.components.importRecords.showAbsenceRecord.ShowAbsenceRecords
 import controllers.connection.Connect;
 import java.awt.FileDialog;
 import java.awt.Frame;
-import java.io.File;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 import javafx.collections.FXCollections;
@@ -20,15 +21,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javax.swing.JOptionPane;
 import models.importRecords.AbsenceRecord;
-import models.importRecords.AbsenceRecord;
+import models.importRecords.EmployeeRecordVariable;
 import models.importRecords.OpenRecordsData;
 //import org.apache.poi.ss.usermodel.Cell;
 //import org.apache.poi.ss.usermodel.Row;
@@ -44,6 +42,7 @@ public class AbsenceController implements Initializable {
     HashMap<String, String> employees;
     String fileTitle;
     String directory;
+    EmployeeRecordVariable erv = new EmployeeRecordVariable();
     
     @FXML
     private TextField alfaPoint, cutiPoint, ijinPoint, sakitPoint, subTotalPoint, prevTitle;
@@ -93,7 +92,7 @@ public class AbsenceController implements Initializable {
         read.readFile();
         realResult.thenAccept(result -> {
             if ("success".equals(result)) {
-                ProcessDatas process = new ProcessDatas(prevTitle.getText(), absences);
+                ProcessDatas process = new ProcessDatas(prevTitle.getText(), absences, erv);
                 process.proceed();
             } else if ("failed".equals(result)) {
                 System.out.println("Failed insert employee");
@@ -103,14 +102,6 @@ public class AbsenceController implements Initializable {
                 fileName.setText("");
             }
         });
-    }
-    
-    public void setAbsenceRecord() {
-        ObservableList<AbsenceRecord> absenceRecords;
-        absenceRecords = FXCollections.observableArrayList();
-        ShowAbsenceRecords records = new ShowAbsenceRecords(33, absenceRecords);
-        records.getRecords();
-        records.show(nameEmployees, nikEmployees, timePointEmployees, permitPointEmployees, totalPointEmployees, employeesTable, dateField);
     }
     
     
@@ -136,14 +127,40 @@ public class AbsenceController implements Initializable {
 //            }
 //        });
 
-        
-
-        ShowOpenRecords openRecord = new ShowOpenRecords(openRecordTable, openRecordId, openRecordTitle, openRecordTimeRange, openRecordAction);
+        ShowOpenRecords openRecord = new ShowOpenRecords(openRecordTable, openRecordId, openRecordTitle, openRecordTimeRange, openRecordAction, erv);
         openRecord.show();
+//        setAbsenceRecord();
+
+        erv.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                myFunction();
+            }
+
+            public void myFunction() {
+                ObservableList<AbsenceRecord> absenceRecords;
+                absenceRecords = FXCollections.observableArrayList();
+                ShowAbsenceRecords records = new ShowAbsenceRecords(erv.getMyVariable(), absenceRecords);
+                records.getRecords();
+                records.show(nameEmployees, nikEmployees, timePointEmployees, permitPointEmployees, totalPointEmployees, employeesTable, dateField);
+            }
+        });
         
         
-        setAbsenceRecord();
+        
+               employeesTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                String nik = employeesTable.getSelectionModel().getSelectedItem().getNik();
+                if (nik != null) {
+                    System.out.println("Double-clicked on: " + nik);
+                    // Perform actions here based on the double-clicked item
+                }
+            }
+        });
     }    
 
 }
+
+
+
 

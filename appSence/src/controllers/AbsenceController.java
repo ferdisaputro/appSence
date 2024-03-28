@@ -106,30 +106,8 @@ public class AbsenceController implements Initializable {
     
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-//        realResult = new CompletableFuture<>();
-//        absences = new ArrayList<>();
-//        employees = new HashMap<>();
-//        ReadFile read = new ReadFile("test absensi feb 2024.xlsx", "E:\\aa-kuliah\\tugas kuliah\\project-akhir-semester\\semester-2\\absensi", realResult, absences, employees);
-//        read.readFile();
-//        ProcessDatas process = new ProcessDatas("test ajah", absences);
-//        process.proceed();
-//        realResult.thenAccept(result -> {
-//            if ("success".equals(result)) {
-//                ProcessDatas process = new ProcessDatas("test ajah", absences);
-//                process.proceed();
-//            } else if ("failed".equals(result)) {
-//                System.out.println("Failed insert employee");
-//            } else if ("cancel".equals(result)) {
-//                System.out.println("import canceled");
-//                absences.clear();
-//                fileName.setText("");
-//            }
-//        });
-
-        ShowOpenRecords openRecord = new ShowOpenRecords(openRecordTable, openRecordId, openRecordTitle, openRecordTimeRange, openRecordAction, erv);
+    public void initialize(URL url, ResourceBundle rb) {        ShowOpenRecords openRecord = new ShowOpenRecords(openRecordTable, openRecordId, openRecordTitle, openRecordTimeRange, openRecordAction, erv);
         openRecord.show();
-//        setAbsenceRecord();
 
         erv.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
@@ -148,12 +126,12 @@ public class AbsenceController implements Initializable {
         
         
         
-               employeesTable.setOnMouseClicked(event -> {
+        employeesTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 String nik = employeesTable.getSelectionModel().getSelectedItem().getNik();
                 if (nik != null) {
-                    System.out.println("Double-clicked on: " + nik);
-                    // Perform actions here based on the double-clicked item
+//                    System.out.println("Double-clicked on: " + nik);
+                    
                 }
             }
         });

@@ -2,6 +2,7 @@ package controllers;
 
 import controllers.classes.importRecords.ProcessDatas;
 import controllers.classes.importRecords.ReadFile;
+import controllers.components.detailAbsence.ShowDetailAbsence;
 import controllers.components.importRecords.ImportOpenFiles.ShowOpenRecords;
 import controllers.components.importRecords.showAbsenceRecord.ShowAbsenceRecords;
 import controllers.connection.Connect;
@@ -28,6 +29,9 @@ import javafx.scene.control.TextField;
 import models.importRecords.AbsenceRecord;
 import models.importRecords.EmployeeRecordVariable;
 import models.importRecords.OpenRecordsData;
+import models.importRecords.details.DetailRecord;
+import models.importRecords.details.PermitDetail;
+import models.importRecords.details.TimeDetail;
 //import org.apache.poi.ss.usermodel.Cell;
 //import org.apache.poi.ss.usermodel.Row;
 //import org.apache.poi.ss.usermodel.Sheet;
@@ -43,15 +47,53 @@ public class AbsenceController implements Initializable {
     String fileTitle;
     String directory;
     EmployeeRecordVariable erv = new EmployeeRecordVariable();
+    AbsenceRecord record;
+    
+//    @FXML
+//    private TextField alfaPoint, cutiPoint, ijinPoint, sakitPoint, subTotalPoint;
+    @FXML
+    private TextField prevTitle;
+    @FXML
+    private Label fileName;
+    
+    // employee data
+    @FXML
+    private TextField nikEmployee, codeEmployee, nameEmployee, workHourEmployee;
+    
+    //card
+    @FXML
+    private Label permitPointCard, timingPointCard, totalPointCard;
     
     @FXML
-    private TextField alfaPoint, cutiPoint, ijinPoint, sakitPoint, subTotalPoint, prevTitle;
-    @FXML
-    private Label permitsPointCard, timingPointCard, fileName, totalPointCard;
-    @FXML
-    private TableView<?> recordsTable, timeAccuracyTable, tableLists;
+    private TableView<?> tableLists;
     @FXML
     private Button importFile;
+    
+
+    //details
+        //permits
+        @FXML
+        private TextField cutiIjinTotalDetail, alfaTotalDetail, totalPointPermitDetail;
+        @FXML
+        private TableView<PermitDetail> permitTableDetail;
+        @FXML
+        private TableColumn<PermitDetail, String> permitTypeDetail, permitDateDetail, permitDescDetail;
+
+        //timeAcuracy
+        @FXML
+        private Label totalPointTimeDetail;
+        @FXML
+        private Label avgClockIn, avgClockOut, timeAccuracy;
+        
+        //records
+    @FXML
+    private TableColumn<DetailRecord, String> dateRecords, 
+            clockInPointRecords, clockInTimeRecords, 
+            clockOutTimeRecords, clockOutPointRecords, 
+            totalPointRecords, entryLocRecords, exitLocRecords;
+    @FXML
+    private TableView<DetailRecord> recordsTable;
+    
     
     //employees record
     @FXML
@@ -104,22 +146,38 @@ public class AbsenceController implements Initializable {
         });
     }
     
+    public void detailAbsence() {
+        ShowDetailAbsence detail = new ShowDetailAbsence(record, erv.getId());
+        detail.setPoints(permitPointCard, timingPointCard, totalPointCard);
+        detail.showDetailPermit(
+                cutiIjinTotalDetail, alfaTotalDetail, totalPointPermitDetail, 
+                permitTypeDetail, permitDateDetail, permitDescDetail, permitTableDetail);
+        detail.showDetailTime(totalPointTimeDetail, avgClockIn, avgClockOut, timeAccuracy);
+        detail.showEmployeeData(nikEmployee, codeEmployee, nameEmployee, workHourEmployee);
+        detail.showRecords(dateRecords, 
+                clockInPointRecords, clockInTimeRecords, 
+                clockOutTimeRecords, clockOutPointRecords, 
+                totalPointRecords, entryLocRecords, exitLocRecords, recordsTable);
+//        detail.show();
+    }
+    
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {        ShowOpenRecords openRecord = new ShowOpenRecords(openRecordTable, openRecordId, openRecordTitle, openRecordTimeRange, openRecordAction, erv);
+    public void initialize(URL url, ResourceBundle rb) {        
+        ShowOpenRecords openRecord = new ShowOpenRecords(openRecordTable, openRecordId, openRecordTitle, openRecordTimeRange, openRecordAction, erv);
         openRecord.show();
 
         erv.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                myFunction();
+                showAbsences();
             }
 
-            public void myFunction() {
+            public void showAbsences() {
                 ObservableList<AbsenceRecord> absenceRecords;
                 absenceRecords = FXCollections.observableArrayList();
-                ShowAbsenceRecords records = new ShowAbsenceRecords(erv.getMyVariable(), absenceRecords);
-                records.getRecords();
+                ShowAbsenceRecords records = new ShowAbsenceRecords(erv.getId(), absenceRecords);
+//                records.getRecords();
                 records.show(nameEmployees, nikEmployees, timePointEmployees, permitPointEmployees, totalPointEmployees, employeesTable, dateField);
             }
         });
@@ -128,10 +186,10 @@ public class AbsenceController implements Initializable {
         
         employeesTable.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
-                String nik = employeesTable.getSelectionModel().getSelectedItem().getNik();
-                if (nik != null) {
-//                    System.out.println("Double-clicked on: " + nik);
-                    
+                record = employeesTable.getSelectionModel().getSelectedItem();
+                if (record.getNik() != null) {
+//                    System.out.println("Double-clicked on: " + record.getNik()); 
+                    detailAbsence();
                 }
             }
         });

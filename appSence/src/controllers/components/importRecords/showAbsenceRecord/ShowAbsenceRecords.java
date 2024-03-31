@@ -8,11 +8,15 @@ import controllers.connection.Connect;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javax.swing.JOptionPane;
 import models.importRecords.AbsenceRecord;
 
 /**
@@ -25,11 +29,15 @@ public class ShowAbsenceRecords {
     Connect conn = new Connect();
     Statement stat;
     ObservableList<AbsenceRecord> absenceRecords;
+    ArrayList<HashMap<String, String>> absences;
+    HashMap<String, ArrayList<HashMap<String, Integer>>> permitsPoint;
     
     public ShowAbsenceRecords(int absenceId, ObservableList<AbsenceRecord> absenceRecords) {
         this.absenceRecords = absenceRecords;
         this.absenceId = absenceId;
         getAbsenceData();
+        
+        //not implemented feature
     }
     
     private void getAbsenceData () {
@@ -42,29 +50,36 @@ public class ShowAbsenceRecords {
                 absenceYear = res.getString("year");
             }
             getRecords();
+            
+            
+            getPermitsPoint();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    public void getRecords() {
+    private void getRecords() {
+        absences = new ArrayList();
         sql = "SELECT " +
                 "    nik, " +
+                "    id_schedule, " +
                 "    name, " +
-//                "    MAX(total_cuti) AS total_cuti, " +
-//                "    MAX(total_ijin) AS total_ijin, " +
-//                "    MAX(total_alfa) AS total_alfa, " +
-//                "    MAX(clock_in_point) AS clock_in_point, " +
-//                "    MAX(clock_out_point) AS clock_out_point " +
-                "    MAX(total_cuti) + MAX(total_ijin) + MAX(total_alfa) AS sub_total_permit, " +
-                "    MAX(clock_in_point) + MAX(clock_out_point) AS sub_total_time, " +
-                "    MAX(total_cuti) + MAX(total_ijin) + MAX(total_alfa) + MAX(clock_in_point) + MAX(clock_out_point) AS total_point " + 
+                "    employee_code, " +
+                "    start, " +
+                "    end, " +
+                "    description, " +
+                "    MAX(total_cuti_ijin) AS total_cuti_ijin, " +
+                "    MAX(total_alfa) AS total_alfa, " +
+//                "    MAX(total_cuti_ijin) + MAX(total_alfa) AS sub_total_permit, " +
+                "    MAX(clock_in_point) + MAX(clock_out_point) AS sub_total_time " +
                 "FROM ( " +
                 "    SELECT  " +
                 "        e.nik, " +
+                "        e.id_schedule, " +
                 "        e.name, " +
-                "        COALESCE(COUNT(CASE WHEN p.type = 'cuti' THEN p.id END), 0) AS total_cuti, " +
-                "        COALESCE(COUNT(CASE WHEN p.type = 'ijin' THEN p.id END), 0) AS total_ijin, " +
+                "        e.employee_code, " +
+                "        s.*, " +
+                "        COALESCE(COUNT(CASE WHEN p.type = 'cuti/ijin' THEN p.id END), 0) AS total_cuti_ijin, " +
                 "        COALESCE(COUNT(CASE WHEN p.type = 'alfa' THEN p.id END), 0) AS total_alfa, " +
                 "        NULL AS clock_in_point, " +
                 "        NULL AS clock_out_point " +
@@ -74,14 +89,18 @@ public class ShowAbsenceRecords {
                 "        permits p ON e.nik = p.nik_employee  " +
                 "                AND MONTH(p.date) = " + absenceMonth +
                 "                AND YEAR(p.date) = " + absenceYear +
+                "    INNER JOIN  " +
+                "        schedules s ON e.id_schedule = s.id  " +
                 "    GROUP BY  " +
                 "        e.nik " +
                 "    UNION ALL " +
                 "    SELECT  " +
                 "        e.nik, " +
+                "        e.id_schedule, " +
                 "        e.name, " +
-                "        NULL AS total_cuti, " +
-                "        NULL AS total_ijin, " +
+                "        e.employee_code, " +
+                "        s.*, " +
+                "        NULL AS total_cuti_ijin, " +
                 "        NULL AS total_alfa, " +
                 "        SUM(da.clock_in_point) AS clock_in_point, " +
                 "        SUM(da.clock_out_point) AS clock_out_point " +
@@ -90,30 +109,97 @@ public class ShowAbsenceRecords {
                 "    LEFT JOIN  " +
                 "        detail_absence da ON e.nik = da.nik_employee " +
                 "                AND da.id_absences =  " + absenceId +
+                "    INNER JOIN  " +
+                "        schedules s ON e.id_schedule = s.id  " +
                 "    GROUP BY  " +
                 "        e.nik " +
                 ") AS combined_data " +
                 "GROUP BY nik " +
-                "ORDER BY total_point DESC;";        
+                "ORDER BY sub_total_time DESC, total_cuti_ijin ASC, total_alfa ASC";        
         try {
             stat = conn.GetConnection().createStatement();
             ResultSet res = stat.executeQuery(sql);
+            int absencesCount = 0;
             while (res.next()) {                
-                absenceRecords.add(new AbsenceRecord(
-                    res.getString("nik"),
-                    res.getString("name"),
-                    res.getString("sub_total_permit"),
-                    res.getString("sub_total_time"),
-                    res.getString("total_point")
-                ));
-//                System.out.println(res.getString("nik") +
-//                    res.getString("name") +
-//                    res.getString("sub_total_permit") +
-//                    res.getString("sub_total_time") +
-//                    res.getString("total_point"));
+                absences.add(new HashMap());
+                absences.get(absencesCount).put("nik", res.getString("nik"));
+                absences.get(absencesCount).put("name", res.getString("name"));
+                absences.get(absencesCount).put("employee_code", res.getString("employee_code"));
+                absences.get(absencesCount).put("schedule", res.getString("start") + " - " + res.getString("end") + " (" +  res.getString("description") + ")");
+                absences.get(absencesCount).put("total_cuti_ijin", res.getString("total_cuti_ijin"));
+                absences.get(absencesCount).put("total_alfa", res.getString("total_alfa"));
+                absences.get(absencesCount).put("sub_total_time", res.getString("sub_total_time"));
+                absencesCount++;
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    //not implemented feature
+    private void getPermitsPoint() {
+        permitsPoint = new HashMap<>();
+        permitsPoint.put("cuti/ijin", new ArrayList<>());
+        permitsPoint.put("alfa", new ArrayList<>());
+        sql = "SELECT * FROM permit_point_requirements ORDER BY max DESC";
+        try {
+            stat = conn.GetConnection().createStatement();
+            ResultSet res = stat.executeQuery(sql);
+            int permitsCount = 0;
+            while (res.next()) {
+                HashMap<String, Integer> hashPoint = new HashMap<>();
+                hashPoint.put("min", Integer.parseInt(res.getString("min")));
+                hashPoint.put("max", Integer.parseInt(res.getString("max")));
+                hashPoint.put("point", Integer.parseInt(res.getString("point")));
+                permitsPoint.get(res.getString("permit_type")).add(hashPoint);
+            }
+            validateAbsences();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    private void validateAbsences () {
+        for (HashMap<String, String> absence : absences) {
+            int totalAlfa = Integer.parseInt(absence.get("total_alfa"));
+            int totalCutiIjin = Integer.parseInt(absence.get("total_cuti_ijin"));
+            int totalPermitsPoint = 0;
+            if (totalAlfa >= permitsPoint.get("alfa").get(0).get("max")) {
+                totalPermitsPoint = 0;
+            } else {
+                for (HashMap<String, Integer> alfa : permitsPoint.get("alfa")) {
+                    if (totalAlfa >= alfa.get("min") && totalAlfa <= alfa.get("max")) {
+                        totalPermitsPoint += alfa.get("point");
+                    }
+                }
+                
+                if (totalCutiIjin > permitsPoint.get("cuti/ijin").get(0).get("max")) {
+                    totalPermitsPoint = 0;
+                } else {
+                    for (HashMap<String, Integer> cutiIjin : permitsPoint.get("cuti/ijin")) {
+                        if (totalCutiIjin >= cutiIjin.get("min") && totalCutiIjin <= cutiIjin.get("max")) {
+                            totalPermitsPoint += cutiIjin.get("point");
+                        }
+                    }
+                }
+            }
+            
+            absence.put("total_permits_point", String.valueOf(totalPermitsPoint));
+            absence.put("total_point", 
+                        String.valueOf(totalPermitsPoint + Integer.parseInt(absence.get("sub_total_time")))
+                    );
+            
+            absenceRecords.add(new AbsenceRecord(
+                absence.get("nik"),
+                absence.get("name"),
+                absence.get("schedule"),
+                absence.get("employee_code"),
+                absence.get("total_cuti_ijin"),
+                absence.get("total_alfa"),
+                absence.get("total_permits_point"),
+                absence.get("sub_total_time"),
+                absence.get("total_point")
+            ));
         }
     }
     

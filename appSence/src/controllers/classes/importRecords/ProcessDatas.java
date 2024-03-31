@@ -144,7 +144,7 @@ public class ProcessDatas {
             
             updateDetailAbsences();
             
-            erv.setMyVariable(id);
+            erv.setId(id);
 //            System.out.println(updatedAbsences.toString());
 //            for (HashMap<String, String> updatedAbsence : updatedAbsences) {
 //                System.out.println(updatedAbsence.toString());

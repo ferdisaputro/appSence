@@ -11,13 +11,13 @@ public class EmployeeRecordVariable {
     private int myVariable;
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public void setMyVariable(int newValue) {
+    public void setId(int newValue) {
         int oldValue = this.myVariable;
         this.myVariable = newValue;
         support.firePropertyChange("myVariable", oldValue, newValue);
     }
 
-    public int getMyVariable() {
+    public int getId() {
         return myVariable;
     }
 

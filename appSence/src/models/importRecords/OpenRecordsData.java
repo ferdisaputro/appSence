@@ -28,7 +28,7 @@ public class OpenRecordsData {
         
         openButton.setOnAction(event -> {
 //            JOptionPane.showMessageDialog(null, this.id+" "+this.title+" "+this.date+" "+this.createdAt);
-            erv.setMyVariable(Integer.parseInt(this.id.get()));
+            erv.setId(Integer.parseInt(this.id.get()));
         });
     }
 

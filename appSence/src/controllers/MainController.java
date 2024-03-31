@@ -34,7 +34,7 @@ public class MainController implements Initializable{
     private Label routeTitle;
     
     @FXML
-    void showAbsence( ) throws IOException {
+    void showAbsence() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/resources/DataRecord.fxml"));
         mainContainer.setCenter(root);
         routeTitle.setText("Absence");

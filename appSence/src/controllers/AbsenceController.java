@@ -177,8 +177,8 @@ public class AbsenceController implements Initializable {
                 ObservableList<AbsenceRecord> absenceRecords;
                 absenceRecords = FXCollections.observableArrayList();
                 ShowAbsenceRecords records = new ShowAbsenceRecords(erv.getId(), absenceRecords);
-//                records.getRecords();
                 records.show(nameEmployees, nikEmployees, timePointEmployees, permitPointEmployees, totalPointEmployees, employeesTable, dateField);
+                openRecord.show();
             }
         });
         
@@ -188,7 +188,6 @@ public class AbsenceController implements Initializable {
             if (event.getClickCount() == 2) {
                 record = employeesTable.getSelectionModel().getSelectedItem();
                 if (record.getNik() != null) {
-//                    System.out.println("Double-clicked on: " + record.getNik()); 
                     detailAbsence();
                 }
             }

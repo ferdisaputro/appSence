@@ -43,15 +43,11 @@ public class ShowOpenRecords {
 //        this.recordDatas =  FXCollections.observableArrayList();
     }
     
-    public void show() {
-        getRecords();
-    }
-    
-    private boolean getRecords (){
+    public void show (){
         recordDatas = FXCollections.observableArrayList();
         try {
             stat = conn.GetConnection().createStatement();
-            sql = "SELECT * FROM absences";
+            sql = "SELECT * FROM absences ORDER BY id DESC";
             ResultSet res = stat.executeQuery(sql);
             while (res.next()) {
                 recordDatas.add(new OpenRecordsData(
@@ -59,19 +55,18 @@ public class ShowOpenRecords {
                     res.getString("title"),
                     res.getString("date"),
                     res.getString("created_at"),
-                    this.erv
+                    this.erv,
+                    this
                 ));
             }
             
             openRecordId.setCellValueFactory(new PropertyValueFactory<OpenRecordsData, String>("id"));
             openRecordTitle.setCellValueFactory(new PropertyValueFactory<OpenRecordsData, String>("title"));
             openRecordTimeRange.setCellValueFactory(new PropertyValueFactory<OpenRecordsData, String>("createdAt"));
-            openRecordAction.setCellValueFactory(new PropertyValueFactory<OpenRecordsData, String>("openButton"));
+            openRecordAction.setCellValueFactory(new PropertyValueFactory<OpenRecordsData, String>("actionButtons"));
             openRecordTable.setItems(recordDatas);
-            return true;
         } catch (Exception e) {
             System.out.println(e);
         }
-        return false;
     }
 }

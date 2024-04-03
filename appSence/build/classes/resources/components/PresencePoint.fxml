@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="TOP_CENTER" fillWidth="false" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.setting.PresenceController">
+   <children>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="40.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="20.0">
+               <children>
+                  <Label text="Presence Point">
+                     <font>
+                        <Font name="Arial Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <HBox spacing="40.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <Label text="Time Period">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <VBox alignment="CENTER" minWidth="-Infinity" spacing="7.0">
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <Label text="Start">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                             <children>
+                                                <TextField fx:id="startHour" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="70.0" promptText="00" style="-fx-font-size: 16px;">
+                                                   <font>
+                                                      <Font name="Arial" size="13.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text=":">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="startMinute" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="70.0" promptText="00" style="-fx-font-size: 16px;">
+                                                   <font>
+                                                      <Font name="Arial" size="13.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text="O'Clock">
+                                                   <font>
+                                                      <Font size="17.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <Label text="End">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                             <children>
+                                                <TextField fx:id="endHour" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="70.0" promptText="00" style="-fx-font-size: 16px;">
+                                                   <font>
+                                                      <Font name="Arial" size="13.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text=":">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="endMinute" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="70.0" promptText="00" style="-fx-font-size: 16px;">
+                                                   <font>
+                                                      <Font name="Arial" size="13.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text="O'Clock">
+                                                   <font>
+                                                      <Font size="17.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <Label text="Type">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="type" editable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="222.0" promptText="Clock in" style="-fx-border-color: ddd; -fx-background-color: white; -fx-border-radius: 2px;" />
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <Label text="Point">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="point" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="222.0" promptText="00">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox>
+                                       <children>
+                                          <Label text="Schedule">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="schedule" editable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="222.0" promptText="0 | ---- 00:00:00 - 00:00:00" style="-fx-border-color: ddd; -fx-background-color: white; -fx-border-radius: 2px;" />
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="buttonParent" alignment="TOP_CENTER">
+                                       <children>
+                                          <Button fx:id="addButton" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#create" prefHeight="30.0" prefWidth="168.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="ADD" />
+                                          <HBox fx:id="updateButtonsContainer" alignment="TOP_CENTER" prefHeight="30.0" prefWidth="76.0" spacing="10.0">
+                                             <children>
+                                                <Button fx:id="updateButton" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#update" prefHeight="30.0" prefWidth="145.0" style="-fx-background-color: #fffb00; -fx-border-color: green; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: green; visibility: true;" text="UPDATE" />
+                                                <Button maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#cancelUpdate" prefHeight="30.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="CANCEL" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </VBox>
+                        <TableView fx:id="presenceTable" fixedCellSize="0.0" prefWidth="355.0" tableMenuButtonVisible="true">
+                           <columns>
+                              <TableColumn fx:id="startEndColumn" prefWidth="50.0" sortable="false" text="Start-End" />
+                              <TableColumn fx:id="typeColumn" prefWidth="60.0" sortable="false" text="Type" />
+                              <TableColumn fx:id="pointColumn" prefWidth="37.0" sortable="false" text="Point" />
+                              <TableColumn fx:id="scheduleColumn" prefWidth="88.0" sortable="false" text="Schedule" />
+                              <TableColumn fx:id="actionColumn" prefWidth="68.0" sortable="false" text="Action" />
+                           </columns>
+                           <effect>
+                              <Blend />
+                           </effect>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
+         </padding>
+      </FlowPane>
+   </children>
+</VBox>

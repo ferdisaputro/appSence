@@ -4,6 +4,7 @@
  */
 package controllers.classes.importRecords;
 
+import controllers.components.importRecords.ImportOpenFiles.ShowOpenRecords;
 import controllers.connection.Connect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,13 +41,10 @@ public class ProcessDatas {
         this.absences = absences;
         this.prevTitle = prevTitle;
         this.erv = erv;
-//        this.insertDetails = new CompletableFuture<>();
     }
     
     public void proceed() {
-//        System.out.println(absences.toString());
         createAbsence();
-//        absences.clear();
     }
     
     private void createAbsence() {
@@ -65,7 +63,6 @@ public class ProcessDatas {
                 if (generatedKeys.next()) {
                     int id = generatedKeys.getInt(1); // Retrieve the generated ID
                     createDetailAbsence(id);
-//                    countPermits(id);
                 } else {
                     System.out.println("Insertion failed, no ID obtained.");
                 }
@@ -90,24 +87,19 @@ public class ProcessDatas {
                         + "\""+id+"\"),";
             }
             sql = sql.substring(0, sql.length()-1);
-//            System.out.println(sql);
             if (stat.executeUpdate(sql) > 0){
-//                insertDetails.complete(Boolean.TRUE);
                 if (getPoints()) {
                     validateDetailAbsences(id);    
                 }
             }
         } catch (Exception e) {
-//            e.printStackTrace();
             JOptionPane.showMessageDialog(null, e);
-//            System.out.println(e);
             try {
                 stat = conn.GetConnection().createStatement();
                 sql = "DELETE FROM absences WHERE id = '"+id+"'";
                 stat.executeUpdate(sql);
             } catch (Exception et) {
                 et.printStackTrace();
-//                System.out.println(et);
             }
         }
     }
@@ -143,12 +135,7 @@ public class ProcessDatas {
             }
             
             updateDetailAbsences();
-            
             erv.setId(id);
-//            System.out.println(updatedAbsences.toString());
-//            for (HashMap<String, String> updatedAbsence : updatedAbsences) {
-//                System.out.println(updatedAbsence.toString());
-//            }
         } catch (Exception e) {
             e.printStackTrace();
 //            System.out.println(e);
@@ -204,7 +191,6 @@ public class ProcessDatas {
                             int end = points.get("end");
                             String point = String.valueOf(points.get("point"));
                             if (clockInOut >= start && clockInOut <= end) updatedAbsences.get(updateCount).put(type + "_point", point);
-                            
                         }
                     }
                 }
@@ -258,74 +244,4 @@ public class ProcessDatas {
         }
         return false;
     }
-    
-    //validate permits point
-//    private void countPermits(int id){
-//        String sql = "SELECT "
-//                + "e.nik, "
-//                + "COALESCE(COUNT(CASE WHEN p.type = 'cuti' THEN p.id END), 0) AS total_cuti, "
-//                + "COALESCE(COUNT(CASE WHEN p.type = 'ijin' THEN p.id END), 0) AS total_ijin, "
-//                + "COALESCE(COUNT(CASE WHEN p.type = 'alfa' THEN p.id END), 0) AS total_alfa "
-//                + "FROM employee e "
-//                + "LEFT JOIN permits p "
-//                + "ON e.nik = p.nik_employee "
-//                + "AND MONTH(p.date) = 2 AND YEAR(p.date) = 2024 "
-//                + "GROUP BY e.nik;";
-//    }
 }
-
-
-
-
-               
-                //coverting start time to minutes
-//                if (res.getString("start") != null) {
-//                    String[] stringStartTime = res.getString("start").split(":");
-//                    int startHour = Integer.parseInt(stringStartTime[0]);
-//                    int startMinutes = Integer.parseInt(stringStartTime[1]);
-//                    int timeStartMinutes = startHour * 60 + startMinutes;
-//                    tempResult.add(timeStartMinutes);
-//                } else {
-//                    tempResult.add(null);
-//                }
-
-                //converting end time to minutes
-//                if (res.getString("end") != null) {
-//                    String[] stringOutTime = res.getString("end").split(":");
-//                    int outHour = Integer.parseInt(stringOutTime[0]);
-//                    int outMinutes = Integer.parseInt(stringOutTime[1]);
-//                    int timeOutMinutes = outHour * 60 + outMinutes;
-//                    tempResult.add(timeOutMinutes);
-//                } else {
-//                    tempResult.add(null);
-//                }
-                        
-                            //check clock_out_point
-//                            if (clockOutPoint.getValue().get(0).get("start") != null && clockOut < clockOutPoint.getValue().get(0).get("start")) {
-//                                // Add logic for the first index
-//                            } else if (clockOutPoint.getValue().get(clockOutPoint.getValue().size()-1).get("end") != null &&
-//                                    clockOut > clockOutPoint.getValue().get(clockOutPoint.getValue().size()-1).get("end")) {
-//                                // Add logic for the last index
-//                            } else {
-//                                for (int i = 0; i < clockOutPoint.getValue().size(); i++) {
-//                                    HashMap<String, Integer> points = clockOutPoint.getValue().get(i);
-//                                    Integer start = points.get("start");
-//                                    Integer end = points.get("end");
-//                                    String point = String.valueOf(points.get("point"));
-//
-//                                    // Check if start is null at the first index and end is null at the last index
-//                                    if (i == 0 && start == null) {
-//                                        // Logic for start is null at the first index
-//                                        if (clockOut <= end) {
-//                                            updatedAbsences.get(updateCount).add(point);
-//                                        }
-//                                    } else if (i == clockOutPoint.getValue().size() - 1 && end == null) {
-//                                        // Logic for end is null at the last index
-//                                        if (clockOut >= start) {
-//                                            updatedAbsences.get(updateCount).add(point);
-//                                        }
-//                                    } else if (start != null && end != null && clockOut >= start && clockOut <= end) {
-//                                        updatedAbsences.get(updateCount).add(point);
-//                                    }
-//                                }
-//                            }

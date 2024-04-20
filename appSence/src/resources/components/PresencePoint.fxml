@@ -13,10 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="TOP_CENTER" fillWidth="false" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.setting.PresenceController">
    <children>
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="40.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 10px; -fx-background-radius: 10px;">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="40.0" prefWidth="747.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 10px; -fx-background-radius: 10px;">
          <children>
             <VBox alignment="TOP_CENTER" spacing="20.0">
                <children>
@@ -154,21 +153,30 @@
                               <Insets left="20.0" />
                            </padding>
                         </VBox>
-                        <TableView fx:id="presenceTable" fixedCellSize="0.0" prefWidth="355.0" tableMenuButtonVisible="true">
-                           <columns>
-                              <TableColumn fx:id="startEndColumn" prefWidth="50.0" sortable="false" text="Start-End" />
-                              <TableColumn fx:id="typeColumn" prefWidth="60.0" sortable="false" text="Type" />
-                              <TableColumn fx:id="pointColumn" prefWidth="37.0" sortable="false" text="Point" />
-                              <TableColumn fx:id="scheduleColumn" prefWidth="88.0" sortable="false" text="Schedule" />
-                              <TableColumn fx:id="actionColumn" prefWidth="68.0" sortable="false" text="Action" />
-                           </columns>
-                           <effect>
-                              <Blend />
-                           </effect>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
+                        <VBox>
+                           <children>
+                              <TableView fx:id="presenceTable" fixedCellSize="0.0" prefWidth="380.0" tableMenuButtonVisible="true">
+                                 <columns>
+                                    <TableColumn fx:id="startEndColumn" prefWidth="50.0" sortable="false" text="Start-End" />
+                                    <TableColumn fx:id="typeColumn" prefWidth="60.0" sortable="false" text="Type" />
+                                    <TableColumn fx:id="pointColumn" prefWidth="37.0" sortable="false" text="Point" />
+                                    <TableColumn fx:id="scheduleColumn" prefWidth="88.0" sortable="false" text="Schedule" />
+                                    <TableColumn fx:id="actionColumn" prefWidth="68.0" sortable="false" text="Action" />
+                                 </columns>
+                                 <effect>
+                                    <Blend />
+                                 </effect>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Label text="Note: Double click to edit data" textFill="RED">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>

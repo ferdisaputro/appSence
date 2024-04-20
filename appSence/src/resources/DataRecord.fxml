@@ -142,21 +142,25 @@
                                                       </Label>
                                                    </children>
                                                 </HBox>
-                                                <TableView fx:id="employeesTable" style="-fx-background-color: transparent;" tableMenuButtonVisible="true" VBox.vgrow="ALWAYS">
-                                                   <columns>
-                                                      <TableColumn fx:id="nikEmployees" editable="false" prefWidth="48.0" sortable="false" text="NIK" />
-                                                      <TableColumn fx:id="nameEmployees" editable="false" prefWidth="75.0" sortable="false" text="Name" />
-                                                      <TableColumn fx:id="timePointEmployees" editable="false" prefWidth="75.0" sortable="false" text="Time Point" />
-                                                      <TableColumn fx:id="permitPointEmployees" editable="false" prefWidth="75.0" sortable="false" text="Permit Point" />
-                                                      <TableColumn fx:id="totalPointEmployees" editable="false" prefWidth="75.0" sortType="DESCENDING" text="Total Point" />
-                                                   </columns>
-                                                   <columnResizePolicy>
-                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                                   </columnResizePolicy>
+                                                <AnchorPane VBox.vgrow="ALWAYS">
                                                    <VBox.margin>
                                                       <Insets top="3.0" />
                                                    </VBox.margin>
-                                                </TableView>
+                                                   <children>
+                                                      <TableView fx:id="employeesTable" style="-fx-background-color: transparent;" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <columns>
+                                                            <TableColumn fx:id="nikEmployees" editable="false" prefWidth="48.0" sortable="false" text="NIK" />
+                                                            <TableColumn fx:id="nameEmployees" editable="false" prefWidth="75.0" sortable="false" text="Name" />
+                                                            <TableColumn fx:id="timePointEmployees" editable="false" prefWidth="75.0" sortable="false" text="Time Point" />
+                                                            <TableColumn fx:id="permitPointEmployees" editable="false" prefWidth="75.0" sortable="false" text="Permit Point" />
+                                                            <TableColumn fx:id="totalPointEmployees" editable="false" prefWidth="75.0" sortType="DESCENDING" text="Total Point" />
+                                                         </columns>
+                                                         <columnResizePolicy>
+                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                         </columnResizePolicy>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
                                                 <Label text="Note: Double click to show detail" textAlignment="CENTER" textFill="RED" wrapText="true">
                                                    <font>
                                                       <Font size="11.0" />

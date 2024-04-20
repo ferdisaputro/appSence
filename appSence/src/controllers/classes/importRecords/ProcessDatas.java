@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 import models.importRecords.EmployeeRecordVariable;
 
@@ -68,8 +69,10 @@ public class ProcessDatas {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-//            System.out.println(e);
+//            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.toString());
+            alert.show();
         }
     }
     
@@ -93,13 +96,18 @@ public class ProcessDatas {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+//            JOptionPane.showMessageDialog(null, e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.toString());
+            alert.show();
             try {
                 stat = conn.GetConnection().createStatement();
                 sql = "DELETE FROM absences WHERE id = '"+id+"'";
                 stat.executeUpdate(sql);
             } catch (Exception et) {
-                et.printStackTrace();
+//                et.printStackTrace();
+                alert.setContentText(e.toString());
+                alert.show();
             }
         }
     }
@@ -137,8 +145,10 @@ public class ProcessDatas {
             updateDetailAbsences();
             erv.setId(id);
         } catch (Exception e) {
-            e.printStackTrace();
-//            System.out.println(e);
+//            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.toString());
+            alert.show();
         }
     }
     
@@ -165,7 +175,10 @@ public class ProcessDatas {
             stat.close();
             JOptionPane.showMessageDialog(null, "Data successfully imported");
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.toString());
+            alert.show();
         }
     }
 
@@ -239,8 +252,10 @@ public class ProcessDatas {
 //            validateDetailAbsences(32)
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
-//            System.out.println(e);
+//            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e.toString());
+            alert.show();
         }
         return false;
     }

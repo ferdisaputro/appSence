@@ -9,10 +9,9 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -22,7 +21,8 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="480.0" minWidth="800.0" prefHeight="480.0" prefWidth="803.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane minHeight="458.0" minWidth="756.0" prefHeight="640.0" prefWidth="1003.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EmployeeController">
    <children>
       <SplitPane dividerPositions="0.36816524908869985" prefHeight="162.0" prefWidth="1280.0" style="-fx-background-color: efefef;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -30,30 +30,30 @@
                <children>
                   <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <content>
-                        <VBox spacing="15.0" style="-fx-background-color: efefef;">
+                        <VBox prefHeight="657.0" prefWidth="376.0" spacing="15.0" style="-fx-background-color: efefef;">
                            <padding>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
                            </padding>
                            <children>
-                              <VBox alignment="TOP_CENTER" maxHeight="268.0" minHeight="268.0" prefHeight="268.0" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: gray; -fx-border-radius: 10px;">
+                              <VBox alignment="TOP_CENTER" maxHeight="523.0" minHeight="268.0" prefHeight="298.0" prefWidth="334.0" spacing="5.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: gray; -fx-border-radius: 10px;">
                                  <children>
                                     <Label text="Form Control">
                                        <font>
                                           <Font name="System Bold" size="17.0" />
                                        </font>
                                     </Label>
-                                    <GridPane hgap="15.0">
+                                    <GridPane hgap="15.0" prefHeight="168.0" prefWidth="301.0" VBox.vgrow="ALWAYS">
                                        <columnConstraints>
-                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
-                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="138.0" />
+                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="138.0" />
                                        </columnConstraints>
                                        <rowConstraints>
                                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <VBox alignment="TOP_CENTER" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                          <VBox alignment="TOP_CENTER" prefHeight="157.0" prefWidth="123.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                              <children>
-                                                <VBox alignment="TOP_CENTER" minHeight="165.0" spacing="7.0" VBox.vgrow="ALWAYS">
+                                                <VBox alignment="TOP_CENTER" minHeight="165.0" prefHeight="225.0" prefWidth="144.0" spacing="7.0" VBox.vgrow="ALWAYS">
                                                    <children>
                                                       <VBox>
                                                          <children>
@@ -62,7 +62,7 @@
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField prefHeight="30.0">
+                                                            <TextField fx:id="txt_nikE" prefHeight="30.0">
                                                                <font>
                                                                   <Font size="15.0" />
                                                                </font>
@@ -76,21 +76,21 @@
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField minHeight="-Infinity" prefHeight="30.0">
+                                                            <TextField fx:id="txt_idE" minHeight="-Infinity" prefHeight="30.0">
                                                                <font>
                                                                   <Font size="15.0" />
                                                                </font>
                                                             </TextField>
                                                          </children>
                                                       </VBox>
-                                                      <VBox>
+                                                      <VBox prefWidth="73.0">
                                                          <children>
                                                             <Label text="Name">
                                                                <font>
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField minHeight="-Infinity" prefHeight="30.0">
+                                                            <TextField fx:id="txt_nameE" minHeight="-Infinity" prefHeight="30.0">
                                                                <font>
                                                                   <Font size="15.0" />
                                                                </font>
@@ -99,47 +99,48 @@
                                                       </VBox>
                                                    </children>
                                                 </VBox>
-                                                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="2000.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="ADD">
-                                                   <font>
-                                                      <Font name="Arial" size="12.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets top="10.0" />
-                                                   </VBox.margin>
-                                                </Button>
                                              </children>
                                           </VBox>
                                           <VBox alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                              <children>
-                                                <VBox minHeight="165.0" VBox.vgrow="ALWAYS">
+                                                <VBox minHeight="165.0" prefHeight="222.0" prefWidth="121.0" VBox.vgrow="ALWAYS">
                                                    <children>
                                                       <Label prefHeight="19.0" prefWidth="129.0" text="Shift">
                                                          <font>
                                                             <Font size="13.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox prefHeight="30.0" prefWidth="2000.0" promptText="Option 1" style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5px;" VBox.vgrow="ALWAYS" />
+                                                      <ComboBox fx:id="Option_E" prefHeight="30.0" prefWidth="2000.0" style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5px;" VBox.vgrow="ALWAYS" />
                                                    </children>
                                                 </VBox>
-                                                <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="2000.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="FIND">
-                                                   <font>
-                                                      <Font name="Arial" size="12.0" />
-                                                   </font>
-                                                   <padding>
-                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
-                                                   </padding>
-                                                   <VBox.margin>
-                                                      <Insets top="10.0" />
-                                                   </VBox.margin>
-                                                </Button>
                                              </children>
                                           </VBox>
                                        </children>
                                     </GridPane>
-                                    <HBox />
+                                    <VBox fx:id="ButtonParent">
+                                       <children>
+                                          <Button fx:id="add_Button" mnemonicParsing="false" onMouseClicked="#btn_addE" prefHeight="21.0" prefWidth="302.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="ADD">
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                             </padding>
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                          <HBox fx:id="updateButtonContainer" prefHeight="52.0" prefWidth="295.0" spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onMouseClicked="#Update" prefHeight="32.0" prefWidth="174.0" style="-fx-background-color: #fffb00; -fx-border-color: green; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: green; visibility: true;" text="Update" />
+                                                <Button mnemonicParsing="false" onMouseClicked="#cancel" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: transparant; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="Cancel" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="15.0" right="15.0" />
+                                             </padding>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
                                  </children>
                                  <padding>
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -152,20 +153,34 @@
                                     </DropShadow>
                                  </effect>
                               </VBox>
-                              <AnchorPane minHeight="350.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: gray;" VBox.vgrow="ALWAYS">
+                              <AnchorPane minHeight="241.0" prefHeight="308.0" prefWidth="332.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: gray;" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <VBox alignment="TOP_CENTER" layoutX="22.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <VBox alignment="TOP_CENTER" layoutX="22.0" prefWidth="247.0" spacing="10.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <Label text="Employees">
                                              <font>
                                                 <Font name="System Bold" size="17.0" />
                                              </font>
                                           </Label>
-                                          <TableView prefHeight="249.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                                          <HBox prefHeight="13.0" prefWidth="301.0">
+                                             <children>
+                                                <TextField fx:id="txt_findE" prefHeight="30.0" prefWidth="330.0" style="-fx-border-radius: 5px 0 0 5px; -fx-background-color: white; -fx-border-color: #ddd;" />
+                                                <Button mnemonicParsing="false" onMouseClicked="#btn_findE" prefHeight="30.0" prefWidth="175.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 0 5px 5px 0; -fx-background-radius: 5px; -fx-text-fill: black;" text="FIND">
+                                                   <font>
+                                                      <Font name="Arial" size="12.0" />
+                                                   </font>
+                                                   <padding>
+                                                      <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                                                   </padding>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <TableView fx:id="table_E" prefHeight="249.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                                              <columns>
-                                                <TableColumn prefWidth="75.0" text="NIK" />
-                                                <TableColumn prefWidth="75.0" text="ID Employee" />
-                                                <TableColumn prefWidth="75.0" text="Name" />
+                                                <TableColumn fx:id="col_nik" prefWidth="75.0" text="NIK" />
+                                                <TableColumn fx:id="col_idE" prefWidth="75.0" text="ID Employee" />
+                                                <TableColumn fx:id="col_name" prefWidth="83.0" text="Name" />
+                                                <TableColumn fx:id="PermitAction" prefWidth="73.0" text="Add Permit" />
                                              </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -193,109 +208,14 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="500.0" prefHeight="160.0" prefWidth="250.0" style="-fx-background-color: transparent;">
                <children>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="581.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <content>
                         <VBox spacing="15.0" style="-fx-background-color: efefef;">
                            <padding>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="30.0" />
                            </padding>
                            <children>
-                              <AnchorPane>
-                                 <children>
-                                    <GridPane hgap="15.0" layoutX="0.5" layoutY="0.5" minHeight="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <columnConstraints>
-                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="190.0" />
-                                          <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="189.0" />
-                                       </columnConstraints>
-                                       <rowConstraints>
-                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                                       </rowConstraints>
-                                       <children>
-                                          <VBox style="-fx-background-color: #DFF5FF; -fx-background-radius: 10px; -fx-border-color: gray; -fx-border-radius: 10px;" GridPane.vgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                                                   <children>
-                                                      <VBox HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label text="Top Employee">
-                                                               <font>
-                                                                  <Font name="System Bold" size="14.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label prefHeight="36.0" prefWidth="74.0" text="2x" VBox.vgrow="ALWAYS">
-                                                               <font>
-                                                                  <Font name="System Bold" size="25.0" />
-                                                               </font>
-                                                               <VBox.margin>
-                                                                  <Insets top="-5.0" />
-                                                               </VBox.margin>
-                                                            </Label>
-                                                         </children>
-                                                      </VBox>
-                                                      <ImageView fitHeight="35.0" fitWidth="35.0">
-                                                         <image>
-                                                            <Image url="@../assets/top.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-                                             </padding>
-                                             <effect>
-                                                <DropShadow offsetX="4.0" offsetY="4.0">
-                                                   <color>
-                                                      <Color opacity="0.15000000596046448" />
-                                                   </color>
-                                                </DropShadow>
-                                             </effect>
-                                          </VBox>
-                                          <VBox prefWidth="514.0" style="-fx-background-color: #DFF5FF; -fx-background-radius: 10px; -fx-border-color: gray; -fx-border-radius: 10px;" GridPane.columnIndex="1" GridPane.vgrow="ALWAYS">
-                                             <children>
-                                                <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
-                                                   <children>
-                                                      <VBox HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <Label text="Permits">
-                                                               <font>
-                                                                  <Font name="System Bold" size="14.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <Label prefHeight="36.0" prefWidth="73.0" text="2x" VBox.vgrow="ALWAYS">
-                                                               <font>
-                                                                  <Font name="System Bold" size="25.0" />
-                                                               </font>
-                                                               <VBox.margin>
-                                                                  <Insets top="-5.0" />
-                                                               </VBox.margin>
-                                                            </Label>
-                                                         </children>
-                                                      </VBox>
-                                                      <ImageView fitHeight="35.0" fitWidth="35.0">
-                                                         <image>
-                                                            <Image url="@../assets/permit.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-                                             </padding>
-                                             <effect>
-                                                <DropShadow offsetX="4.0" offsetY="4.0">
-                                                   <color>
-                                                      <Color opacity="0.15000000596046448" />
-                                                   </color>
-                                                </DropShadow>
-                                             </effect>
-                                          </VBox>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane minHeight="-Infinity" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: gray;">
+                              <AnchorPane minHeight="-Infinity" prefHeight="373.0" prefWidth="629.0" style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: gray;">
                                  <children>
                                     <VBox alignment="TOP_CENTER" layoutX="22.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
@@ -313,12 +233,12 @@
                                                 <RowConstraints maxHeight="300.0" valignment="TOP" vgrow="ALWAYS" />
                                              </rowConstraints>
                                              <children>
-                                                <VBox GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                                <VBox prefWidth="259.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                                                    <children>
-                                                      <TableView style="-fx-background-color: transparent;">
+                                                      <TableView fx:id="table_P" prefWidth="265.0" style="-fx-background-color: transparent;">
                                                          <columns>
-                                                            <TableColumn prefWidth="-1.0" text="Date" />
-                                                            <TableColumn prefWidth="-1.0" text="Type" />
+                                                            <TableColumn fx:id="Col_date" prefWidth="-1.0" text="Date" />
+                                                            <TableColumn fx:id="Col_type" prefWidth="-1.0" text="Type" />
                                                          </columns>
                                                          <columnResizePolicy>
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -327,11 +247,6 @@
                                                             <Insets />
                                                          </opaqueInsets>
                                                       </TableView>
-                                                      <Label text="Add Permit">
-                                                         <font>
-                                                            <Font name="System Bold" size="15.0" />
-                                                         </font>
-                                                      </Label>
                                                    </children>
                                                 </VBox>
                                                 <VBox minHeight="180.0" prefWidth="100.0" spacing="8.0">
@@ -341,6 +256,7 @@
                                                             <Font name="System Bold" size="15.0" />
                                                          </font>
                                                       </Label>
+                                                      <VBox />
                                                       <VBox>
                                                          <children>
                                                             <Label text="NIK">
@@ -348,17 +264,7 @@
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" VBox.vgrow="ALWAYS" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox>
-                                                         <children>
-                                                            <Label text="Name">
-                                                               <font>
-                                                                  <Font size="13.0" />
-                                                               </font>
-                                                            </Label>
-                                                            <TextField minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" VBox.vgrow="ALWAYS" />
+                                                            <TextField fx:id="txt_nikp" minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" VBox.vgrow="ALWAYS" />
                                                          </children>
                                                       </VBox>
                                                       <VBox>
@@ -368,7 +274,7 @@
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <ComboBox minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" prefWidth="20000.0" promptText="Option 1" style="-fx-background-color: white; -fx-border-color: lightgray;" VBox.vgrow="ALWAYS" />
+                                                            <ComboBox fx:id="option_P" minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" prefWidth="20000.0" style="-fx-background-color: white; -fx-border-color: lightgray;" VBox.vgrow="ALWAYS" />
                                                          </children>
                                                       </VBox>
                                                       <VBox>
@@ -378,10 +284,16 @@
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <DatePicker minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" prefWidth="20000.0" style="-fx-background-color: white; -fx-border-color: #ddd;" />
+                                                            <DatePicker fx:id="date" minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" prefWidth="20000.0" style="-fx-background-color: white; -fx-border-color: #ddd;" />
                                                          </children>
                                                       </VBox>
-                                                      <Button minWidth="170.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="2000.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="ADD PERMIT">
+                                                      <VBox prefHeight="200.0" prefWidth="100.0">
+                                                         <children>
+                                                            <Label text="Description" />
+                                                            <TextArea fx:id="txt_desc" prefHeight="200.0" prefWidth="200.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <Button minWidth="170.0" mnemonicParsing="false" onMouseClicked="#add_Permit" prefHeight="31.0" prefWidth="2000.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="ADD PERMIT">
                                                          <font>
                                                             <Font name="Arial" size="12.0" />
                                                          </font>
@@ -425,8 +337,8 @@
                                                 </Label>
                                                 <HBox>
                                                    <children>
-                                                      <ComboBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="253.0" promptText="Option 1" style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5px 0 0 5px;" />
-                                                      <Button maxHeight="-Infinity" minHeight="-Infinity" minWidth="105.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 0 5px 5px 0; -fx-background-radius: 5px; -fx-text-fill: black;" text="SHOW">
+                                                      <ComboBox fx:id="Option_3" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="253.0" style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5px 0 0 5px;" />
+                                                      <Button maxHeight="-Infinity" minHeight="-Infinity" minWidth="105.0" mnemonicParsing="false" onMouseClicked="#show" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 0 5px 5px 0; -fx-background-radius: 5px; -fx-text-fill: black;" text="SHOW">
                                                          <font>
                                                             <Font name="Arial" size="12.0" />
                                                          </font>
@@ -438,12 +350,26 @@
                                                 </HBox>
                                              </children>
                                           </VBox>
-                                          <TableView style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                                          <TableView fx:id="table_DA" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
                                              <columns>
-                                                <TableColumn prefWidth="211.6666259765625" text="Date" />
-                                                <TableColumn prefWidth="226.333251953125" text="Clock in" />
-                                                <TableColumn prefWidth="223.666748046875" text="Clock out" />
-                                                <TableColumn prefWidth="170.0" text="Point" />
+                                                <TableColumn fx:id="date_DA" prefWidth="100.0" text="Date" />
+                                                <TableColumn prefWidth="192.0" text="Clock in">
+                                                   <columns>
+                                                      <TableColumn fx:id="time_ci" prefWidth="75.0" text="Time" />
+                                                      <TableColumn fx:id="point_ci" prefWidth="75.0" text="Point" />
+                                                   </columns></TableColumn>
+                                                <TableColumn prefWidth="170.0" text="Clock out">
+                                                   <columns>
+                                                      <TableColumn fx:id="time_co" prefWidth="75.0" text="Time" />
+                                                      <TableColumn fx:id="point_co" prefWidth="75.0" text="Point" />
+                                                   </columns></TableColumn>
+                                                <TableColumn fx:id="TotalPoint" prefWidth="85.0" text="Total Point" />
+                                                <TableColumn prefWidth="206.0" text="Location">
+                                                   <columns>
+                                                      <TableColumn fx:id="entry" prefWidth="75.0" text="Entry" />
+                                                      <TableColumn fx:id="exit" prefWidth="75.0" text="Exit" />
+                                                   </columns>
+                                                </TableColumn>
                                              </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

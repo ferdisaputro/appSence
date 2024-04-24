@@ -300,21 +300,8 @@ public class EmployeeController implements Initializable {
         this.resetDailyRecord();
         txt_nikp.setText(emp.getNik());
         this.selectedEmployee = emp;
-        ObservableList<PermitClassTable> permit = FXCollections.observableArrayList();
         try{
-            q = "SELECT * FROM permits where nik_employee = ?";
-            ps = con.prepareStatement(q);
-            ps.setString(1, emp.getNik());
-            rs = ps.executeQuery();
-            while (rs.next()){
-                permit.add(new PermitClassTable(
-                        rs.getDate("date"),
-                        rs.getString("type")));
-            }
-
-            Col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
-            Col_type.setCellValueFactory(new PropertyValueFactory<>("type"));
-            table_P.setItems(permit);
+            DatatablePermit(emp.getNik());
         }catch(SQLException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -332,19 +319,7 @@ public class EmployeeController implements Initializable {
                 txt_nikp.setText(nik);
                 ObservableList<PermitClassTable> permit = FXCollections.observableArrayList();
                 try{
-                    q = "SELECT * FROM permits where nik_employee = ?";
-                    ps = con.prepareStatement(q);
-                    ps.setString(1, nik);
-                    rs = ps.executeQuery();
-                    while (rs.next()){
-                        permit.add(new PermitClassTable(
-                                rs.getDate("date"),
-                                rs.getString("type")));
-                    }
-
-                    Col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
-                    Col_type.setCellValueFactory(new PropertyValueFactory<>("type"));
-                    table_P.setItems(permit);
+                    DatatablePermit(nik);
                 }catch(SQLException e){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -443,6 +418,8 @@ public class EmployeeController implements Initializable {
     @FXML
     private TableColumn<PermitClassTable, String> Col_type;
     @FXML
+    private TableColumn<PermitClassTable, String> Col_delete;
+    @FXML
     private ComboBox<String> option_P;
     @FXML
     private TextField txt_id;
@@ -467,6 +444,22 @@ public class EmployeeController implements Initializable {
             option_P.setItems(List);
     }
     
+    public void deletePermit (int nik) {
+        q = "DELETE FROM permits WHERE id = ?";
+        try {
+            ps = con.prepareStatement(q);
+            ps.setInt(1, nik);
+            ps.executeUpdate();
+            DatatablePermit(this.selectedEmployee.getNik());
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Error occurred: " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
+    
     private ObservableList<PermitClassTable> DatatablePermit(String nik) throws SQLException{
         ObservableList<PermitClassTable> permitlist = FXCollections.observableArrayList();
         try{
@@ -477,10 +470,17 @@ public class EmployeeController implements Initializable {
            
            while(rs.next()){
                 permitlist.add(new PermitClassTable(
+                        rs.getInt("id"),
                         rs.getDate("date"),
-                        rs.getString("type")));
+                        rs.getString("type"),
+                        this));
             }
-           table_P.setItems(permitlist);
+            Col_date.setCellValueFactory(new PropertyValueFactory<PermitClassTable, String>("date"));
+            Col_type.setCellValueFactory(new PropertyValueFactory<PermitClassTable, String>("type"));
+            Col_delete.setCellValueFactory(new PropertyValueFactory<PermitClassTable, String>("delete"));
+            
+            table_P.getItems().clear();
+            table_P.setItems(permitlist);
         }catch(SQLException e){
             Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");

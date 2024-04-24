@@ -39,7 +39,7 @@ public class Employee {
         this.schedule = new SimpleIntegerProperty(schedule);
         this.button = new Button("Add Permit");
         this.button.setOnAction(event ->{
-        employee.ButtonKlikPermit(this);
+            employee.ButtonKlikPermit(this);
         });
     }
     

@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -97,7 +98,8 @@ public class EmployeeController implements Initializable {
     @FXML
     private TableColumn<Employee, String>col_nik;
     @FXML
-    private TableColumn<Employee, String> PermitAction;
+    private TableColumn<Employee, String> Action;
+    
     @FXML
     void btn_addE() {
         Add_Employee();
@@ -154,7 +156,8 @@ public class EmployeeController implements Initializable {
             col_nik.setCellValueFactory(new PropertyValueFactory<Employee, String>("nik"));
             col_idE.setCellValueFactory(new PropertyValueFactory<Employee, String>("employee_code"));
             col_name.setCellValueFactory(new PropertyValueFactory<Employee, String>("name"));
-            PermitAction.setCellValueFactory(new PropertyValueFactory<Employee, String>("button"));
+            Action.setCellValueFactory(new PropertyValueFactory<Employee, String>("ActionButtons"));
+            
            
            table_E.setItems(employeeList);
         }catch(SQLException e){
@@ -172,6 +175,22 @@ public class EmployeeController implements Initializable {
         table_E.setItems(newdata);
     }
     
+     public void Delete_Employee(String nik){
+        try{
+            q = "DELETE FROM employee where nik = ?";
+            ps = con.prepareStatement(q);
+            ps.setString(1, nik);
+            ps.executeUpdate();
+            UpdateTable();
+        }catch(SQLException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Error occurred: " + e.getMessage());
+                alert.showAndWait();
+        }
+    }
+     
     public void Add_Employee(){
         String nik = txt_nikE.getText();
         String id = txt_idE.getText();
@@ -210,6 +229,8 @@ public class EmployeeController implements Initializable {
         }
        }
     }
+    
+   
     
     private void setShift(){
         ObservableList<String> ShiftList = FXCollections.observableArrayList();
@@ -310,26 +331,6 @@ public class EmployeeController implements Initializable {
             alert.showAndWait();
         }
     }
-        
-    public void TableKlikPermit(){
-        table_E.setOnMouseClicked(event ->{
-            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
-                Employee em = table_E.getSelectionModel().getSelectedItem();
-                String nik = em.getNik();
-                txt_nikp.setText(nik);
-                ObservableList<PermitClassTable> permit = FXCollections.observableArrayList();
-                try{
-                    DatatablePermit(nik);
-                }catch(SQLException e){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Error occurred: " + e.getMessage());
-                    alert.showAndWait();
-                }
-            }
-        });
-    }
     
     public void updateEmployee(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -405,6 +406,40 @@ public class EmployeeController implements Initializable {
                 edited = true;
                 showHiddenButton();
                 setForm(employee);
+            }else if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1){
+                employee = table_E.getSelectionModel().getSelectedItem();
+                this.resetDailyRecord();
+                txt_nikp.setText(employee.getNik());
+                this.selectedEmployee = employee;
+                try{
+                    DatatablePermit(employee.getNik());
+                }catch(SQLException e){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Error occurred: " + e.getMessage());
+                        alert.showAndWait();
+                }
+            }
+        });
+    }
+    
+    public void TableKlikPermit(){
+        table_E.setOnMouseClicked(event ->{
+            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1){
+                employee = table_E.getSelectionModel().getSelectedItem();
+                this.resetDailyRecord();
+                txt_nikp.setText(employee.getNik());
+                this.selectedEmployee = employee;
+                try{
+                    DatatablePermit(employee.getNik());
+        }catch(SQLException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Error occurred: " + e.getMessage());
+            alert.showAndWait();
+        }
             }
         });
     }

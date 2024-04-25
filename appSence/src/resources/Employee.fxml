@@ -181,7 +181,7 @@
                                                       <TableColumn fx:id="col_nik" prefWidth="75.0" text="NIK" />
                                                       <TableColumn fx:id="col_idE" prefWidth="75.0" text="ID Employee" />
                                                       <TableColumn fx:id="col_name" prefWidth="83.0" text="Name" />
-                                                      <TableColumn fx:id="PermitAction" prefWidth="73.0" text="Action" />
+                                                      <TableColumn fx:id="Action" prefWidth="73.0" text="Action" />
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

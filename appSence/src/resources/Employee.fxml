@@ -61,7 +61,7 @@
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField fx:id="txt_nikE" prefHeight="30.0">
+                                                            <TextField fx:id="txt_nikE" onKeyTyped="#nikR" prefHeight="30.0">
                                                                <font>
                                                                   <Font size="15.0" />
                                                                </font>
@@ -273,7 +273,7 @@
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField fx:id="txt_nikp" minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" VBox.vgrow="ALWAYS" />
+                                                            <TextField fx:id="txt_nikp" disable="true" editable="false" minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" VBox.vgrow="ALWAYS" />
                                                          </children>
                                                       </VBox>
                                                       <VBox>
@@ -283,7 +283,7 @@
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <ComboBox fx:id="option_P" minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" prefWidth="20000.0" style="-fx-background-color: white; -fx-border-color: lightgray;" VBox.vgrow="ALWAYS" />
+                                                            <ComboBox fx:id="option_P" disable="true" editable="true" minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" prefWidth="20000.0" style="-fx-background-color: white; -fx-border-color: lightgray;" VBox.vgrow="ALWAYS" />
                                                          </children>
                                                       </VBox>
                                                       <VBox>
@@ -293,16 +293,16 @@
                                                                   <Font size="13.0" />
                                                                </font>
                                                             </Label>
-                                                            <DatePicker fx:id="date" minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" prefWidth="20000.0" style="-fx-background-color: white; -fx-border-color: #ddd;" />
+                                                            <DatePicker fx:id="date" disable="true" minHeight="-Infinity" minWidth="140.0" prefHeight="30.0" prefWidth="20000.0" style="-fx-background-color: white; -fx-border-color: #ddd;" />
                                                          </children>
                                                       </VBox>
                                                       <VBox prefHeight="200.0" prefWidth="100.0">
                                                          <children>
                                                             <Label text="Description" />
-                                                            <TextArea fx:id="txt_desc" prefHeight="200.0" prefWidth="200.0" />
+                                                            <TextArea fx:id="txt_desc" disable="true" prefHeight="200.0" prefWidth="200.0" />
                                                          </children>
                                                       </VBox>
-                                                      <Button minWidth="170.0" mnemonicParsing="false" onMouseClicked="#add_Permit" prefHeight="31.0" prefWidth="2000.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="ADD PERMIT">
+                                                      <Button fx:id="addPermitButton" disable="true" minWidth="170.0" mnemonicParsing="false" onMouseClicked="#add_Permit" prefHeight="31.0" prefWidth="2000.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-text-fill: black;" text="ADD PERMIT">
                                                          <font>
                                                             <Font name="Arial" size="12.0" />
                                                          </font>
@@ -346,8 +346,8 @@
                                                 </Label>
                                                 <HBox>
                                                    <children>
-                                                      <ComboBox fx:id="Option_3" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="253.0" style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5px 0 0 5px;" />
-                                                      <Button maxHeight="-Infinity" minHeight="-Infinity" minWidth="105.0" mnemonicParsing="false" onMouseClicked="#show" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 0 5px 5px 0; -fx-background-radius: 5px; -fx-text-fill: black;" text="SHOW">
+                                                      <ComboBox fx:id="Option_3" disable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="253.0" style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5px 0 0 5px;" />
+                                                      <Button fx:id="showDaily" maxHeight="-Infinity" minHeight="-Infinity" minWidth="105.0" mnemonicParsing="false" onMouseClicked="#show" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-radius: 0 5px 5px 0; -fx-background-radius: 5px; -fx-text-fill: black;" text="SHOW">
                                                          <font>
                                                             <Font name="Arial" size="12.0" />
                                                          </font>

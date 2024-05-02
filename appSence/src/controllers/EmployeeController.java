@@ -34,6 +34,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -69,6 +70,13 @@ public class EmployeeController implements Initializable {
         TableKlikUpdate();
         DatatableFC();
         showHiddenButton();
+        
+        txt_nikE.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() > 16) {
+                // Jika panjang teks melebihi 10 karakter, trim teks menjadi 10 karakter terakhir
+                txt_nikE.setText(newValue.substring(0, 16));
+            }
+        });
     }
      
 //    =====================FORM CONTROL SOURCE CODE=============================
@@ -79,6 +87,10 @@ public class EmployeeController implements Initializable {
     private HBox updateButtonContainer;
     @FXML
     private VBox ButtonParent;
+    @FXML
+    private Button showDaily;
+    @FXML
+    private Button addPermitButton;
     @FXML
     private TextField txt_nikE;
     @FXML
@@ -113,6 +125,11 @@ public class EmployeeController implements Initializable {
     @FXML
     void Update() {
         updateEmployee();
+    }
+    
+    @FXML
+    void nikR(KeyEvent event) {
+        txt_nikE.getText().length();
     }
     
     @FXML
@@ -196,15 +213,23 @@ public class EmployeeController implements Initializable {
         String id = txt_idE.getText();
         String nm = txt_nameE.getText(); 
         String shift = Option_E.getValue();
-        String[] getid = shift.split("//|");
-        String getShift = getid[0].trim();
-       if (nik.isEmpty() || id.isEmpty() || nm.isEmpty() ) {
+        if(nik.length() < 16) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("NIK KURANG");
+            alert.showAndWait();
+            return;
+        } else if (nik.isEmpty() || id.isEmpty() || nm.isEmpty() ) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Please Fill All DATA");
             alert.showAndWait();
+            return;
+        }
 
-        } else {
+        String[] getid = shift.split("//|");
+        String getShift = getid[0].trim();
+       
         try{
             q = "INSERT INTO employee (nik,employee_code,name,id_schedule) VALUES (?,?,?,?)";
             ps = con.prepareStatement(q);
@@ -227,7 +252,7 @@ public class EmployeeController implements Initializable {
                 alert.setContentText("Error occurred: " + e.getMessage());
                 alert.showAndWait();
         }
-       }
+        clean();
     }
     
    
@@ -376,18 +401,17 @@ public class EmployeeController implements Initializable {
         txt_idE.setText(employee.getEmployee_code());
         txt_nameE.setText(employee.getName());
         txt_nikE.setText(employee.getNik());
+        ObservableList<String> items = Option_E.getItems();
+        String[] array = new String[items.size()];
+        items.toArray(array);
         
-        try{
-            q = "SELECT * FROM employee where id_schedule =?";
-            ps = con.prepareStatement(q);
-            rs = ps.executeQuery();
-            while(rs.next()){
-                Option_E.getItems().add(rs.getString("id_schedule"));
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
+        for (int i = 0; i < array.length; i++) {
+            if (Integer.parseInt(array[i].split(" | ")[0]) == employee.getSchedule()){
+                Option_E.getSelectionModel().select(i);
+            }       
         }
     }
+    
     
     private void showHiddenButton(){
         ButtonParent.getChildren().remove(updateButtonContainer);
@@ -413,6 +437,12 @@ public class EmployeeController implements Initializable {
                 this.selectedEmployee = employee;
                 try{
                     DatatablePermit(employee.getNik());
+                option_P.setDisable(false);
+                date.setDisable(false);
+                txt_desc.setDisable(false);
+                txt_nikp.setDisable(false);
+                addPermitButton.setDisable(false);
+                Option_3.setDisable(false);
                 }catch(SQLException e){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
@@ -424,25 +454,7 @@ public class EmployeeController implements Initializable {
         });
     }
     
-    public void TableKlikPermit(){
-        table_E.setOnMouseClicked(event ->{
-            if(event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 1){
-                employee = table_E.getSelectionModel().getSelectedItem();
-                this.resetDailyRecord();
-                txt_nikp.setText(employee.getNik());
-                this.selectedEmployee = employee;
-                try{
-                    DatatablePermit(employee.getNik());
-        }catch(SQLException e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Error occurred: " + e.getMessage());
-            alert.showAndWait();
-        }
-            }
-        });
-    }
+    
     
 //    =======================PERMITS SOURCE CODE================================
     

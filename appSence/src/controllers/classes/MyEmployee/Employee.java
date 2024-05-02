@@ -41,6 +41,7 @@ public class Employee {
         this.name = new SimpleStringProperty(name);
         this.schedule = new SimpleIntegerProperty(schedule);
         this.button2  = new Button("Delete");
+        this.button2.setStyle("-fx-background-color: red; -fx-text-fill: white;");
         this.button2.setOnAction(event ->{
             if (JOptionPane.showConfirmDialog(null, "Delete \""+ this.nik.get() + "\" from database?") == JOptionPane.YES_OPTION){
             employee.Delete_Employee(this.nik.get());
